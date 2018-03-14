@@ -1,0 +1,25 @@
+{
+  "name": "creativeproject4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.3",
+    "node": "^9.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haoyucn/CreativeProject4.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/haoyucn/CreativeProject4/issues"
+  },
+  "homepage": "https://github.com/haoyucn/CreativeProject4#readme"
+}
