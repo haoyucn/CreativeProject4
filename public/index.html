@@ -22,16 +22,18 @@
   <div class="col-md-6"></div>
   <div class="container">
 
-  <form v-on:submit.prevent="GetSongs">
+  <div>
     <div class="form-group">
     <label><h1 class="text-cetnter">What do you want to search for?</h1></label>
       <input id="searchInput" type="text" class="form-control" placeholder="Find music" v-model="musicName"></input>
     </div>
 
     <div class="form-group">
-      <button id="searchSubmit" type="submit" value="Submit" class="btn btn-default">Go!</button>
+      <button id="searchSubmit" type="submit" value="Submit" v-on:click="GetSongs" class="btn btn-default">Go!</button>
+      <button v-on:click="GetFavs" class="btn btn-default">Show My Favorites!</button>
+      <button type="button" v-if="showingPlayList == true" v-on:click="sort" class="btn btn-default">Sort Alphabetically</button>
     </div>
-    </form>
+  </div>
 
 </div>
 </div>
@@ -88,6 +90,8 @@
           <source v-bind:src=data.previewUrl type="audio/mpeg"/>
           <source v-bind:src=data.previewUrl type="audio/ogg"/>
         </audio>
+        <button v-if="showingPlayList == false" v-on:click.prevent="addToFav(data)" class="btn btn-default">Add to favorites</button>
+        <button v-if="showingPlayList == true" v-on:click.prevent="removeFromFav(data)" class="btn btn-default">remove from favorites</button>
       </div>
     </div>
   </div>
@@ -103,8 +107,9 @@
 
 
 <div class="footer">
-  <p>&copy; <a href="https://github.com/haoyucn/CreativeProject3/tree/master">Creative Project 3</a> All rights reserved</p>
+  <p>&copy; <a href="https://github.com/haoyucn/CreativeProject4">Creative Project 4</a> All rights reserved</p>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
 <script src="script.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

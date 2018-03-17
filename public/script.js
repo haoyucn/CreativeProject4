@@ -5,10 +5,10 @@ var app = new Vue({
     resultString: '',
     loading: false,
     musicName: '',
+    showingPlayList: false,
   },
   methods: {
     GetSongs: function(){
-      console.log("get here");
       this.loading = true;
       this.resultString = "";
       this.musicList = [];
@@ -26,10 +26,23 @@ var app = new Vue({
                   releaseDate: this.truncateDate(json.results[i].releaseDate),
                   previewUrl: json.results[i].previewUrl,
                   itunesUrl: json.results[i].trackViewUrl,
+
                 };
                 this.musicList.push(data);
               }
       })
+      this.showingPlayList = false;
+    },
+    GetFavs: function(){
+      console.log("nnnn");
+      this.musicList = [];
+      axios.get('/api/favorites').then(response=>{
+        this.musicList = response.data;
+        this.resultString = "My Favorites";
+        return true;
+      }).catch(err=>{
+      });
+      this.showingPlayList = true;
     },
     truncate: function(string) {
       var tempString = string;
@@ -41,6 +54,30 @@ var app = new Vue({
     },
     truncateDate: function(string) {
       return string.substring(0, 10);
+    },
+    addToFav: function(data){
+      axios.post('/api/addToFav',{
+        song: data,
+      }).then(response=>{
+        alert("song added to favorites");
+      }).catch(err=>{
+
+      });
+    },
+    played:function(){
+      console.log("played");
+    },
+    removeFromFav: function(data){
+      axios.delete('/api/delete/' + data.songid).then(response=>{
+        this.GetFavs();
+      }).catch(err=>{
+      })
+    },
+    sort: function(){
+      axios.put('/api/sort').then(response => {
+        this.GetFavs();
+      }).catch(err=>{
+      });
     }
   },
   computed: {
